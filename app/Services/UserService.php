@@ -90,7 +90,7 @@ class UserService implements UserServiceInterface
      $user->middlename = $attributes['middlename']; 
      $user->suffixname = $attributes['suffixname']; 
      $user->username = $attributes['username'];
-     $this->request->hasFile('file') &&  $user->photo = $this->upload($this->request->file('file'));
+     $this->request->hasFile('file') &&  $user->photo = 'http://localhost:8000/storage/'.$this->upload($this->request->file('file'));
      $user->email = $attributes['email'];
      $user->password = $this->hash($attributes['password']);
      $user->save();
@@ -130,10 +130,10 @@ class UserService implements UserServiceInterface
         $user->middlename = $attributes['middlename']; 
         $user->suffixname = $attributes['suffixname']; 
         $user->username = $attributes['username'];
-        $user->photo = $this->upload($this->request->file('file'));
+        $this->request->hasFile('file') &&  $user->photo = 'http://localhost:8000/storage/'.$this->upload($this->request->file('file'));
         $user->email = $attributes['email'];
         $user->password = $this->hash($attributes['password']);
-        $user->save();
+
         $result = $user->save();
 
         return boolval($result);
@@ -205,8 +205,8 @@ class UserService implements UserServiceInterface
      */
     public function upload(UploadedFile $file)
     {
-        $path = $file->store('/user/images','public');
-       return 'http://localhost:8000/storage/'.$path;
+        $path = $file->store('user/images','public');
+       return $path;
 
     }
 }
