@@ -115,7 +115,7 @@ class UserController extends Controller
         // $user->delete();
 
         $this->user->destroy($id);
-        return redirect()->back();
+        return redirect('/');
       }
 
       public function delete($id){
@@ -123,6 +123,6 @@ class UserController extends Controller
         // $user->forceDelete();
 
         $this->user->delete($id);
-        return redirect()->back();
+        return redirect('/');
       }
 }
